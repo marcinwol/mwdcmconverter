@@ -1,0 +1,7 @@
+*.pro.user*
+*~
+*Make*
+*.o
+*.a
+*.so*
+app/mwimagefinder
