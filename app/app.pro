@@ -8,7 +8,8 @@ TEMPLATE = app
 
 TARGET = mwdcmconverter
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    mwdcmconverter.cpp
 
 LIBS +=  ../src/libmwapp.a
 LIBS +=  ../ext/libmwext.a
@@ -16,3 +17,6 @@ LIBS +=  ../ext/libmwext.a
 include(../defaults.pri)
 
 #HEADERS +=
+
+HEADERS += \
+    mwdcmconverter.h
