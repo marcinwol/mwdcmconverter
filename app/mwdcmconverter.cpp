@@ -18,9 +18,9 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
     desc.add_options()
             ("help,h", po::value<bool>()->implicit_value(true),
                       "produce help message")
-            ("in-dir,i",  po::value<string>(),
+            ("in-dir,i",  po::value<path>()->default_value(current_path()),
                         "input folder")
-            ("out-dir,o", po::value<string>(),
+            ("out-dir,o", po::value<path>()->default_value(current_path()),
                         "location where the found images will be copied")
             ("csv-file,c", po::value<string>(),
                          "output csv file path")
@@ -38,8 +38,7 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
     if (vm.count("help"))
     {
         cout << desc << "\n";
-    }
-
+    }       
 
 }
 
@@ -62,6 +61,9 @@ MwDcmConverter::get_option<string>(const string & opt_name);
 
 template optional<bool>
 MwDcmConverter::get_option<bool>(const string & opt_name);
+
+template optional<path>
+MwDcmConverter::get_option<path>(const string & opt_name);
 
 MwDcmConverter::~MwDcmConverter()
 {

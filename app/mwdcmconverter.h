@@ -14,10 +14,10 @@
 #include "utils.h"
 
 using namespace std;
+using namespace boost::filesystem;
 using boost::optional;
 using boost::none;
 
-namespace bf = boost::filesystem;
 namespace po = boost::program_options;
 
 
