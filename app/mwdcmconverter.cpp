@@ -18,7 +18,7 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
     desc.add_options()
             ("help,h", po::value<bool>()->implicit_value(true),
                       "produce help message")
-            ("in-dir,i",  po::value<vector<string>>()->multitoken(),
+            ("in-dir,i",  po::value<string>(),
                         "input folder")
             ("out-dir,o", po::value<string>(),
                         "location where the found images will be copied")
@@ -35,10 +35,33 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
 
     po::notify(vm);
 
-    if (vm.count("help")) {
+    if (vm.count("help"))
+    {
         cout << desc << "\n";
     }
+
+
 }
+
+template<typename T>
+optional<T>
+MwDcmConverter::get_option(const string & opt_name)
+{
+
+    if (!vm.count(opt_name))
+    {
+        return none;
+    }
+
+    return vm[opt_name].as<T>();
+}
+
+// explicit instantiations of get template function
+template optional<string>
+MwDcmConverter::get_option<string>(const string & opt_name);
+
+template optional<bool>
+MwDcmConverter::get_option<bool>(const string & opt_name);
 
 MwDcmConverter::~MwDcmConverter()
 {
