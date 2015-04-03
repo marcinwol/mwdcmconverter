@@ -256,6 +256,11 @@ namespace  mw {
               }
           }
 
+          if (show_progress)
+          {
+            cout <<     endl;
+          }
+
           if (errno)
           {
               delete[] cstr;
@@ -395,18 +400,21 @@ namespace  mw {
       {
 
         if (bf::exists(out_path) && remove_if_exist == true)
-        {
-           // cout << "removing: " << out_path <<endl;
+        {      
               bf::remove_all(out_path);
         }
 
-       bf::create_directory(out_path);
+       bf::create_directories(out_path);
+
        return true;
 
-      } catch(const bf::filesystem_error & e)
+      }
+      catch(const bf::filesystem_error & e)
       {
          errp(e.what());
+         return false;
       }
+
       return false;
     }
 

@@ -6,6 +6,35 @@ MwDcmConverter::MwDcmConverter(int acc, char *avv[])
 }
 
 
+
+void
+MwDcmConverter::read_in_dir(const path & in_dir, int max_level, bool verbose)
+{
+    found_paths =  mw::fs::get_all_paths_fts2(in_dir, max_level, verbose);
+}
+
+bool MwDcmConverter::create_output_directory(const path & out_dir)
+{
+
+    try
+    {
+        if (!is_directory(out_dir))
+        {
+            if (!mw::fs::create_output_dir(out_dir, mw::fs::OVERWRITE_IF_EXIST))
+            {
+                return false;
+            }
+        }
+    }
+    catch(const filesystem_error & e)
+    {
+       mw::errp(e.what());
+       return false;
+    }
+
+    return true;
+}
+
 void
 MwDcmConverter::ParseOptions(int acc, char *avv[])
 {
@@ -20,7 +49,7 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
                       "produce help message")
             ("in-dir,i",  po::value<path>()->default_value(current_path()),
                         "input folder")
-            ("out-dir,o", po::value<path>()->default_value(current_path()),
+            ("out-dir,o", po::value<path>(),
                         "location where the found images will be copied")
             ("csv-file,c", po::value<string>(),
                          "output csv file path")
@@ -44,7 +73,7 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
 
 template<typename T>
 optional<T>
-MwDcmConverter::get_option(const string & opt_name)
+MwDcmConverter::get_option(const string & opt_name) const
 {
 
     if (!vm.count(opt_name))
@@ -57,13 +86,13 @@ MwDcmConverter::get_option(const string & opt_name)
 
 // explicit instantiations of get template function
 template optional<string>
-MwDcmConverter::get_option<string>(const string & opt_name);
+MwDcmConverter::get_option<string>(const string & opt_name) const;
 
 template optional<bool>
-MwDcmConverter::get_option<bool>(const string & opt_name);
+MwDcmConverter::get_option<bool>(const string & opt_name) const;
 
 template optional<path>
-MwDcmConverter::get_option<path>(const string & opt_name);
+MwDcmConverter::get_option<path>(const string & opt_name) const;
 
 MwDcmConverter::~MwDcmConverter()
 {

@@ -13,8 +13,11 @@
 
 #include "utils.h"
 
+#include "../ext/format.h"
+
 using namespace std;
 using namespace boost::filesystem;
+
 using boost::optional;
 using boost::none;
 
@@ -22,18 +25,29 @@ namespace po = boost::program_options;
 
 
 class MwDcmConverter
-{
+{        
 public:
+
+    using paths_vector = vector<mw::fs::found_path_info>;
+
     MwDcmConverter(int acc, char *avv[]);
 
+    void read_in_dir(const path & in_dir,
+                     int max_level = -1,
+                     bool verbose = true);
+
+    bool create_output_directory(const path & out_dir);
+
+
     template<typename T>
-    optional<T> get_option(const string & opt_name);
+    optional<T> get_option(const string & opt_name) const;
 
     virtual ~MwDcmConverter();
 
 private:
 
     void ParseOptions(int acc, char *avv[]);
+    paths_vector found_paths;
 
     po::variables_map vm;
 
