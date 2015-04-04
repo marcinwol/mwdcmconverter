@@ -36,7 +36,7 @@ public:
                      int max_level = -1,
                      bool verbose = true);
 
-    bool create_output_directory(const path & out_dir);
+    bool create_output_directory(const path & out_dir, bool remove_if_exist);
 
 
     template<typename T>

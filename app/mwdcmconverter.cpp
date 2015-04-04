@@ -13,14 +13,14 @@ MwDcmConverter::read_in_dir(const path & in_dir, int max_level, bool verbose)
     found_paths =  mw::fs::get_all_paths_fts2(in_dir, max_level, verbose);
 }
 
-bool MwDcmConverter::create_output_directory(const path & out_dir)
+bool MwDcmConverter::create_output_directory(const path & out_dir, bool remove_if_exist = false)
 {
 
     try
     {
         if (!is_directory(out_dir))
         {
-            if (!mw::fs::create_output_dir(out_dir, mw::fs::OVERWRITE_IF_EXIST))
+            if (!mw::fs::create_output_dir(out_dir, remove_if_exist))
             {
                 return false;
             }

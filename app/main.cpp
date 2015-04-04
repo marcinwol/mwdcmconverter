@@ -24,11 +24,13 @@ int main(int ac, char* av[])
 
     if (!out_dir)
     {
+        // if out_dir not given, use in_dir as out_dir
         out_dir = in_dir;
     }
     else
     {
-        if (!app.create_output_directory(*out_dir))
+        // if out_dir given, than create it if needed
+        if (!app.create_output_directory(*out_dir, mw::fs::OVERWRITE_IF_EXIST))
         {
             fmt::print_colored(fmt::RED, "Cant create {}\n", *out_dir);
             return 1;
