@@ -1,9 +1,12 @@
 #include "mwimage.h"
 
-MwImage::MwImage()
-{
 
+void
+MwImage::show()
+{
+    mimg.display();
 }
+
 
 MwImage::~MwImage()
 {

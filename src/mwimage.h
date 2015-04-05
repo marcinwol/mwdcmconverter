@@ -1,15 +1,41 @@
 #ifndef MWIMAGE_H
 #define MWIMAGE_H
 
+#include <memory>
+
+#include <Magick++.h>
+
+#include <boost/filesystem.hpp>
 
 #include "utils.h"
 
+using namespace std;
+using namespace boost::filesystem;
 
 class MwImage
 {
 public:
-    MwImage();
-    ~MwImage();
+    MwImage(){}
+
+    MwImage(const string & _img_path):img_path(_img_path){}
+    MwImage(const path   & _img_path):MwImage(_img_path.string()){}
+
+
+    void ping() {mimg.ping(img_path.string());}
+    void read() {mimg.read(img_path.string());}
+
+    void show() ;
+
+    Magick::Image & get() {return mimg;}
+
+
+    virtual ~MwImage();
+
+private:
+
+    path img_path;
+    Magick::Image mimg;
+
 };
 
 #endif // MWIMAGE_H

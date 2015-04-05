@@ -38,5 +38,7 @@ int main(int ac, char* av[])
         }
     }
 
+    app.test();
+
     return 0;
 }

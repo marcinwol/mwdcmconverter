@@ -11,7 +11,9 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/optional.hpp>
 
+#include "mwimage.h"
 #include "utils.h"
+
 
 #include "../ext/format.h"
 
@@ -41,6 +43,8 @@ public:
 
     template<typename T>
     optional<T> get_option(const string & opt_name) const;
+
+    void test() const;
 
     virtual ~MwDcmConverter();
 

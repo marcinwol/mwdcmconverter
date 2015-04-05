@@ -96,6 +96,42 @@ MwDcmConverter::get_option<bool>(const string & opt_name) const;
 template optional<path>
 MwDcmConverter::get_option<path>(const string & opt_name) const;
 
+
+
+void
+MwDcmConverter::test() const
+{
+
+    cout << "test" << endl;
+
+    path p {"/mnt/e/ImageDatabases/from_Adolaid/02a_WB_new_discs/DICOMs/D11_1.dcm"};
+
+    MwImage img {p};
+    img.read();
+
+    Magick::Image mimg = img.get();
+
+    mimg.colorSpace(Magick::GRAYColorspace);
+    mimg.compressType(Magick::NoCompression);
+    mimg.depth(8);
+    mimg.resolutionUnits(Magick::PixelsPerInchResolution);
+    mimg.type(Magick::GrayscaleMatteType);
+    mimg.density(Magick::Geometry(36,36));
+
+    cout << mimg.xResolution() << endl;
+
+    mimg.write("/home/marcin/Desktop/test.tiff");
+
+    //Magick::Image mimg2("/home/marcin/Desktop/test2.tiff");
+
+    //mimg2.write(mimg.Image()., "PNG");
+
+
+
+}
+
+
+
 MwDcmConverter::~MwDcmConverter()
 {
 
