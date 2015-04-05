@@ -53,6 +53,8 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
                         "location where the found images will be copied")
             ("csv-file,c", po::value<string>(),
                          "output csv file path")
+            ("overwrite,w", po::value<bool>()->implicit_value(false),
+                         "overwrite output files")
             ("verbose,v", po::bool_switch()->default_value(false),
                          "verbose output");
 

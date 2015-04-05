@@ -15,6 +15,7 @@ int main(int ac, char* av[])
     auto verbose   = app.get_option<bool>("verbose");
     auto in_dir    = app.get_option<path>("in-dir");
     auto out_dir   = app.get_option<path>("out-dir");
+    auto overwrite = app.get_option<bool>("overwrite");
     auto csv_file  = app.get_option<string>("csv-file");
 
     if (in_dir)
@@ -28,9 +29,9 @@ int main(int ac, char* av[])
         out_dir = in_dir;
     }
     else
-    {
+    {                                        
         // if out_dir given, than create it if needed
-        if (!app.create_output_directory(*out_dir, mw::fs::OVERWRITE_IF_EXIST))
+        if (!app.create_output_directory(*out_dir, *overwrite))
         {
             fmt::print_colored(fmt::RED, "Cant create {}\n", *out_dir);
             return 1;
