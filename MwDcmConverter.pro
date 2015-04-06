@@ -16,6 +16,6 @@ OTHER_FILES += \
 
 
 binary.files += app/mwdcmconverter
-binary.path = /opt/mwdcmconverter
+binary.path = /opt/mwimage
 INSTALLS += binary
 
