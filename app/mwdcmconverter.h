@@ -30,7 +30,13 @@ class MwDcmConverter
 {        
 public:
 
+    bool options_ok;
+
     using paths_vector = vector<mw::fs::found_path_info>;
+
+    static const vector<string> allowed_formats;
+    static const map<string, string> new_extentions;
+
 
     MwDcmConverter(int acc, char *avv[]);
 
@@ -43,6 +49,8 @@ public:
 
     template<typename T>
     optional<T> get_option(const string & opt_name) const;
+
+    bool isAllowedFormat(const string & format);
 
     void test() const;
 
@@ -57,6 +65,9 @@ private:
     path input_dir;
     path output_dir;
 
+
 };
+
+
 
 #endif // MWDCMCONVERTER_H

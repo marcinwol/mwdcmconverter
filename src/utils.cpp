@@ -237,7 +237,7 @@ namespace  mw {
               else if (node->fts_info & FTS_F)
               {
 
-                  if (show_progress && (i % 100 == 0))
+                  if (show_progress && (i % 10 == 0))
                   {
                       cout  << "\r" << "Read " << i << " files "
                             << "in " << in_path
@@ -256,10 +256,14 @@ namespace  mw {
               }
           }
 
+
           if (show_progress)
           {
-            cout <<     endl;
+            cout << "\nTotal number of files found is: "
+                 << found_paths.size()
+                 << endl;
           }
+
 
           if (errno)
           {
@@ -325,6 +329,7 @@ namespace  mw {
            }
 
 
+
            return found_paths;
       }
 
@@ -370,7 +375,7 @@ namespace  mw {
           }
 
 
-          if (show_progress && (i % 100) == 0)
+          if (show_progress && (i % 10) == 0)
           {
               cout  << "\r" << "Read " << i << " files "
                     << "in " << in_path

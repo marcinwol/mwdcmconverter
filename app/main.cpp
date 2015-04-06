@@ -12,11 +12,18 @@ int main(int ac, char* av[])
     MwDcmConverter app {ac, av};
 
     // get program options
-    auto verbose   = app.get_option<bool>("verbose");
-    auto in_dir    = app.get_option<path>("in-dir");
-    auto out_dir   = app.get_option<path>("out-dir");
-    auto overwrite = app.get_option<bool>("overwrite");
-    auto csv_file  = app.get_option<string>("csv-file");
+    auto verbose        = app.get_option<bool>("verbose");
+    auto in_dir         = app.get_option<path>("in-dir");
+    auto out_dir        = app.get_option<path>("out-dir");
+    auto overwrite      = app.get_option<bool>("overwrite");
+    auto csv_file       = app.get_option<string>("csv-file");
+    auto output_format  = app.get_option<string>("out-format");
+
+
+    if (!app.options_ok)
+    {
+        return 1;
+    }
 
     if (in_dir)
     {
@@ -67,7 +74,8 @@ int main(int ac, char* av[])
 
         map<string, string> fileparts = mw::fs::getfileparts(in_file_path);
 
-        path out_path = *out_dir / path(fileparts["basename"]+".tiff");
+        path out_path = *out_dir / path(fileparts["basename"]
+                                        +  app.new_extentions.at(*output_format));
 
         if (*verbose)
         {
@@ -89,7 +97,8 @@ int main(int ac, char* av[])
         {
             fmt::print("\t -saving converted to: {}\n", out_path.string());
         }
-        img.save_as_tiff(out_path, "TIFF");
+
+        img.save_as_tiff(out_path, *output_format);
     }
 
 

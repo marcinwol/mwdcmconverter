@@ -1,5 +1,16 @@
 #include "mwdcmconverter.h"
 
+
+const vector<string> MwDcmConverter::allowed_formats  {
+       "TIFF", "PNG", "JPEG"};
+
+const map<string, string> MwDcmConverter::new_extentions {
+    {"TIFF", ".tiff"},
+    {"PNG", ".png"},
+    {"JPEG", ".jpg"}
+};
+
+
 MwDcmConverter::MwDcmConverter(int acc, char *avv[])
 {
     ParseOptions(acc, avv);
@@ -52,6 +63,10 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
                       "produce help message")
             ("in-dir,i",  po::value<path>()->default_value(current_path()),
                         "input folder")
+            ("out-format,T", po::value<string>()->default_value("TIFF"),
+                        "output image format (e.g. TIFF, PNG, JPEG)")
+            ("csv-file,c", po::value<string>(),
+                            "csv file with files to convert")
             ("out-dir,o", po::value<path>(),
                         "location where the found images will be copied")
             ("csv-file,c", po::value<string>(),
@@ -71,8 +86,22 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
 
     if (vm.count("help"))
     {
+       cout << desc << "\n";
+
+       options_ok = false;
+    }
+
+    if (!isAllowedFormat(vm["out-format"].as<string>()))
+    {
+        cout << "Given outout format \""
+             << vm["out-format"].as<string>()
+             << "\" is not supported!\n" << endl;
+
         cout << desc << "\n";
-    }       
+        options_ok = false;
+    }
+
+    options_ok = true;
 
 }
 
@@ -99,7 +128,19 @@ MwDcmConverter::get_option<bool>(const string & opt_name) const;
 template optional<path>
 MwDcmConverter::get_option<path>(const string & opt_name) const;
 
+bool
+MwDcmConverter::isAllowedFormat(const string & format)
+{
+   // return any_of(allowed_formats.begin(), allowed_formats.end(), format);
 
+    if ((find(allowed_formats.begin(), allowed_formats.end(), format)) != allowed_formats.end())
+    {
+        return true;
+    }
+
+    return false;
+
+}
 
 void
 MwDcmConverter::test() const
