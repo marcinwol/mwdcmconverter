@@ -39,12 +39,13 @@ int main(int ac, char* av[])
     }
 
 
+    // get found paths of files in the input directory
     const MwDcmConverter::paths_vector found_files = app.getPaths();
     size_t files_no = found_files.size();
     size_t indx {0};
 
 
-
+    // process each path and convert images to grayscale, 8-bit tiffs
     for (const mw::fs::found_path_info & a_path: found_files)
     {
         //cout << a_path.fpath << endl;
@@ -70,11 +71,13 @@ int main(int ac, char* av[])
 
         if (*verbose)
         {
-            fmt::print("Reading {} ...\n", in_file_path.string());
+            fmt::print("Reading {}/{}: {} ...\n",
+                        indx, files_no, in_file_path.string());
         }
         else
         {
-            cout  << "\r" << fmt::format("Processing file {}/{} ...", indx, files_no)
+            cout  << "\r" << fmt::format("Processing file {}/{} ...",
+                                         indx, files_no)
                           << flush;
         }
 
