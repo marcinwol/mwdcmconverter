@@ -46,6 +46,8 @@ public:
 
     void test() const;
 
+    void save_as_tiff(const string & out_filename);
+
     virtual ~MwDcmConverter();
 
 private:

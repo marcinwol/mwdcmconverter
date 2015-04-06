@@ -132,6 +132,39 @@ MwImage::calcResolution() {
 
 }
 
+
+void
+MwImage::save_as_tiff(const path & out_path, const string & format)
+{
+
+    Magick::Image mimg = get();
+
+    mimg.colorSpace(Magick::GRAYColorspace);
+    mimg.compressType(Magick::NoCompression);
+    mimg.depth(8);
+    mimg.resolutionUnits(Magick::PixelsPerInchResolution);
+    mimg.type(Magick::GrayscaleMatteType);
+
+    array<double, 2> dpi = resolution.getDPI();
+
+    Magick::Geometry dip_geometry(72, 72);
+
+    if (dpi[0] > 0 && dpi[1] > 0)
+    {
+        dip_geometry = Magick::Geometry(int(dpi[0]), int(dpi[1]));
+    }
+
+    mimg.density(dip_geometry);
+
+    Magick::Blob b;
+    mimg.write(&b, format);
+
+    ofstream oimg(out_path.string(), ifstream::binary);
+    oimg.write(static_cast<const char *>(b.data()), b.length());
+}
+
+
+
 const MwImage::properties_map &
 MwImage::getProperties() const
 {

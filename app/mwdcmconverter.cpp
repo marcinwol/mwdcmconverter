@@ -111,26 +111,24 @@ MwDcmConverter::test() const
     MwImage img {p};
     img.read();
 
-    Magick::Image mimg = img.get();
 
-    mimg.colorSpace(Magick::GRAYColorspace);
-    mimg.compressType(Magick::NoCompression);
-    mimg.depth(8);
-    mimg.resolutionUnits(Magick::PixelsPerInchResolution);
-    mimg.type(Magick::GrayscaleMatteType);
-    mimg.density(Magick::Geometry(236,236));
-
-    cout << mimg.xResolution() << endl;
-
-    cout << img.getResolution().getDPI()[0] << endl;
+    img.save_as_tiff("/home/m/Desktop/test2", "TIFF");
 
 
 
-    mimg.write("/home/m/Desktop/test.tiff");
 
-    //Magick::Image mimg2("/home/marcin/Desktop/test2.tiff");
+    //mimg.write("/home/m/Desktop/test2");
 
-    //mimg2.write(mimg.Image()., "PNG");
+//    Magick::Blob b;
+//    mimg.write(&b, "TIFF");
+
+
+
+//   // cout.write(static_cast<const char *>(b.data()), b.length());
+
+//    ofstream oimg("/home/m/Desktop/test2.jpg", ifstream::binary);
+//    oimg.write(static_cast<const char *>(b.data()), b.length());
+
 
 
 

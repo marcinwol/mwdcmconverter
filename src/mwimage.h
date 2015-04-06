@@ -46,8 +46,7 @@ public:
     const properties_map & getProperties() const;
     const MwResolution & getResolution() const;
 
-
-
+    void save_as_tiff(const path & out_path, const string & format = "TIFF");
 
     virtual ~MwImage();
 
