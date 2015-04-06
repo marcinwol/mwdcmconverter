@@ -46,7 +46,7 @@ public:
 
     void test() const;
 
-    void process_input_dir();
+    const paths_vector & getPaths() const {return found_paths;}
 
     virtual ~MwDcmConverter();
 

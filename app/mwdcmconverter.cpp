@@ -137,39 +137,6 @@ MwDcmConverter::test() const
 
 }
 
-void
-MwDcmConverter::process_input_dir()
-{
-
-    for (const mw::fs::found_path_info & a_path: found_paths)
-    {
-        //cout << a_path.fpath << endl;
-
-        path in_file_path = a_path.fpath;
-
-        if (!MwImage::is_image(in_file_path))
-        {
-            continue;
-        }
-
-        map<string, string> fileparts = mw::fs::getfileparts(in_file_path);
-
-        path out_path = output_dir / path(fileparts["basename"]+".tiff");
-
-
-        MwImage img {in_file_path};
-        img.read();
-
-        fmt::print("Saving to: {}\n", out_path.string());
-
-        img.save_as_tiff(out_path, "TIFF");
-
-    }
-
-}
-
-
-
 
 MwDcmConverter::~MwDcmConverter()
 {
