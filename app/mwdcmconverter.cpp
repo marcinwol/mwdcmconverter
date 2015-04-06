@@ -53,7 +53,7 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
                         "location where the found images will be copied")
             ("csv-file,c", po::value<string>(),
                          "output csv file path")
-            ("overwrite,w", po::value<bool>()->implicit_value(false),
+            ("overwrite,w", po::value<bool>()->default_value(false),
                          "overwrite output files")
             ("verbose,v", po::bool_switch()->default_value(false),
                          "verbose output");
@@ -104,7 +104,9 @@ MwDcmConverter::test() const
 
     cout << "test" << endl;
 
-    path p {"/mnt/e/ImageDatabases/from_Adolaid/02a_WB_new_discs/DICOMs/D11_1.dcm"};
+   // path p {"/media/sf_D_DRIVE/dcm_for_tests/moa/159169_1_anon/im_3/i0000,0000b-no-phi.dcm"};
+
+    path p {"/media/sf_D_DRIVE/dcm_for_tests/most/MB00019_KFLK/V0/20030418/20018/PA10/200181.dcm"};
 
     MwImage img {p};
     img.read();
@@ -116,11 +118,15 @@ MwDcmConverter::test() const
     mimg.depth(8);
     mimg.resolutionUnits(Magick::PixelsPerInchResolution);
     mimg.type(Magick::GrayscaleMatteType);
-    mimg.density(Magick::Geometry(36,36));
+    mimg.density(Magick::Geometry(236,236));
 
     cout << mimg.xResolution() << endl;
 
-    mimg.write("/home/marcin/Desktop/test.tiff");
+    cout << img.getResolution().getDPI()[0] << endl;
+
+
+
+    mimg.write("/home/m/Desktop/test.tiff");
 
     //Magick::Image mimg2("/home/marcin/Desktop/test2.tiff");
 

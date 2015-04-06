@@ -12,8 +12,10 @@ TEMPLATE = lib
 TARGET = mwapp
 
 SOURCES += utils.cpp \ 
-    mwimage.cpp
+    mwimage.cpp \
+    mwresolution.cpp
 
 HEADERS += utils.h \ 
-    mwimage.h
+    mwimage.h \
+    mwresolution.h
 
