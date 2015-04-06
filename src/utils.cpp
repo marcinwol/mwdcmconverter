@@ -461,6 +461,42 @@ namespace  mw {
     }
 
 
+    map<string, string>
+    getfileparts(const string & _in_path)
+    {
+
+        bf::path in_path {_in_path};
+
+        map<string, string> fileparts;
+
+        string filename = in_path.filename().string();
+        string ext = bf::extension(filename);
+        string basename {filename};
+        mw::replace(basename, ext, "");
+
+
+        fileparts["filename"] = filename;
+        fileparts["basename"] = basename;
+
+        fileparts["ext"] = ext;
+
+        if (ext.length() > 0)
+        {
+            fileparts["ext"] = ext.substr(1); // no dot.
+        }
+
+        fileparts["parent"] = in_path.parent_path().string();
+
+        return fileparts;
+    }
+
+    map<string, string>
+    getfileparts(const bf::path & _in_path)
+    {
+        return getfileparts(_in_path.string());
+    }
+
+
   }
 
 

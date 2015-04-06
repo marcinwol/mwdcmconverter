@@ -46,16 +46,16 @@ public:
 
     void test() const;
 
-    void save_as_tiff(const string & out_filename);
+    void process_input_dir();
 
     virtual ~MwDcmConverter();
 
 private:
-
     void ParseOptions(int acc, char *avv[]);
     paths_vector found_paths;
-
     po::variables_map vm;
+    path input_dir;
+    path output_dir;
 
 };
 

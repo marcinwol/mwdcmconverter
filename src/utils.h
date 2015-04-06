@@ -231,6 +231,13 @@ namespace  mw {
                     const string & substr = "_");
 
 
+    map<string, string>
+    getfileparts(const string & _in_path);
+
+    map<string, string>
+    getfileparts(const bf::path & _in_path);
+
+
 
   }
 

@@ -48,6 +48,11 @@ public:
 
     void save_as_tiff(const path & out_path, const string & format = "TIFF");
 
+
+
+    static bool is_image(const path & img_path_);
+
+
     virtual ~MwImage();
 
 private:

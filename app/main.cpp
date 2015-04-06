@@ -40,5 +40,8 @@ int main(int ac, char* av[])
 
     app.test();
 
+    app.process_input_dir();
+
+
     return 0;
 }

@@ -186,6 +186,36 @@ MwImage::getType() const
 }
 
 
+
+
+bool
+MwImage::is_image(const path & img_path_)
+{
+
+  try
+  {
+
+    Magick::Image img ;
+
+    img.ping(img_path_.string());
+
+    return true;
+  }
+  catch(Magick::Error & e)
+  {
+    return false;
+  }
+  catch(Magick::WarningCorruptImage & e)
+  {
+    return false;
+  }
+  catch(Magick::WarningCoder & e)
+  {
+     return false;
+  }
+}
+
+
 MwImage::~MwImage()
 {
 
