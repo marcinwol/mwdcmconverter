@@ -73,6 +73,8 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
                          "output csv file path")
             ("overwrite,w", po::value<bool>()->default_value(false),
                          "overwrite output files")
+            ("append-dpi", po::bool_switch()->default_value(false),
+                      "append DPI to the output filename")
             ("verbose,v", po::bool_switch()->default_value(false),
                          "verbose output");
 

@@ -18,6 +18,7 @@ int main(int ac, char* av[])
     auto overwrite      = app.get_option<bool>("overwrite");
     auto csv_file       = app.get_option<string>("csv-file");
     auto output_format  = app.get_option<string>("out-format");
+    auto append_dpi     = app.get_option<bool>("append-dpi");
 
 
     if (!app.options_ok)
@@ -74,8 +75,7 @@ int main(int ac, char* av[])
 
         map<string, string> fileparts = mw::fs::getfileparts(in_file_path);
 
-        path out_path = *out_dir / path(fileparts["basename"]
-                                        +  app.new_extentions.at(*output_format));
+        string out_filename = fileparts["basename"];
 
         if (*verbose)
         {
@@ -89,9 +89,23 @@ int main(int ac, char* av[])
                           << flush;
         }
 
-
         MwImage img {in_file_path};
         img.read();
+
+
+        if (*append_dpi)
+        {
+            array<double, 2> dpi = img.getResolution().getDPI();
+            out_filename += fmt::format("_DPI{:03d}", int(dpi[0]));
+        }
+
+
+        out_filename +=  app.new_extentions.at(*output_format);
+
+        path out_path = *out_dir / path(out_filename);
+
+
+
 
         if (*verbose)
         {
