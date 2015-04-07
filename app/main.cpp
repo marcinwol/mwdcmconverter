@@ -97,14 +97,16 @@ int main(int ac, char* av[])
         if (*append_dpi)
         {
             array<double, 2> dpi = img.getResolution().getDPI();
-            out_filename += fmt::format("_DPI{:03d}", int(dpi[0]));
+            out_filename += fmt::format("_DPI{:03d}",
+                                        static_cast<int>(dpi[0]));
         }
 
         if (distance)
         {
             array<double, 2> dpi = img.getResolution().getDPI();
-            double pixel_length = (*distance) / (25.4/int(dpi[0]));
-            out_filename += fmt::format("_d{:03d}px", int(pixel_length));
+            double pixel_length = (*distance) / (25.4/dpi[0]);
+            out_filename += fmt::format("_d{:03d}px",
+                                        static_cast<int>(pixel_length+0.5));
         }
 
 
@@ -122,6 +124,8 @@ int main(int ac, char* av[])
 
         img.save_as_tiff(out_path, *output_format);
     }
+
+    cout << endl;
 
 
     return 0;
