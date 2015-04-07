@@ -4,4 +4,4 @@
 *.o
 *.a
 *.so*
-app/mwimagefinder
+app/mwdcmconverter
