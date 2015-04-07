@@ -75,6 +75,9 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
                          "overwrite output files")
             ("append-dpi", po::bool_switch()->default_value(false),
                       "append DPI to the output filename")
+            ("append-distance", po::value<double>(),
+                      "add numper of pixels that correspond to given dinstance [mm]"
+                      "based on the DPI")
             ("verbose,v", po::bool_switch()->default_value(false),
                          "verbose output");
 
@@ -123,6 +126,9 @@ MwDcmConverter::get_option(const string & opt_name) const
 // explicit instantiations of get template function
 template optional<string>
 MwDcmConverter::get_option<string>(const string & opt_name) const;
+
+template optional<double>
+MwDcmConverter::get_option<double>(const string & opt_name) const;
 
 template optional<bool>
 MwDcmConverter::get_option<bool>(const string & opt_name) const;
