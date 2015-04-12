@@ -74,8 +74,6 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
                             "csv file with files to convert")
             ("out-dir,o", po::value<path>(),
                         "location where the found images will be copied")
-            ("csv-file,c", po::value<string>(),
-                         "output csv file path")
             ("overwrite,w", po::value<bool>()->default_value(false),
                          "overwrite output files")
             ("append-dpi", po::bool_switch()->default_value(false),
@@ -110,6 +108,21 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
 
         cout << desc << "\n";
         options_ok = false;
+        return;
+    }
+
+    auto csv_file       = get_option<string>("csv-file");
+
+    if (csv_file)
+    {
+        if (!is_regular_file(*csv_file))
+        {
+            fmt::print_colored(fmt::RED,
+                               "Csv file {} does not exist\n",
+                               *csv_file);
+            options_ok = false;
+            return;
+        }
     }
 
     options_ok = true;
