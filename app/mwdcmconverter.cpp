@@ -56,7 +56,12 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
     po::positional_options_description p;
     p.add("in-dir", -1);
 
-    po::options_description desc("mwdcmconverter - allowed options");
+    po::options_description desc("mwdcmconverter - allowed options"
+                                "\n"
+                                 "Examples\n"
+                                 "mwdcmconverter ~/Desktop/test2/ -o ~/Desktop/tiffs --append-dpi --append-distance=12.8\n"
+                                 ""
+                                 );
 
     desc.add_options()
             ("help,h", po::value<bool>()->implicit_value(true),
@@ -76,7 +81,8 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
             ("append-dpi", po::bool_switch()->default_value(false),
                       "append DPI to the output filename")
             ("append-distance", po::value<double>(),
-                      "add numper of pixels that correspond to given dinstance [mm]"
+                      "add numper of pixels that correspond to given "
+                      "dinstance [mm]"
                       "based on the DPI")
             ("verbose,v", po::bool_switch()->default_value(false),
                          "verbose output");
