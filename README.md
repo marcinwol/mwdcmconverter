@@ -2,9 +2,11 @@
 
 mwdcmconverter convert DICOM images into other formats with correct DPI resolution.
 
-## motivation
+# motivation
 
-Working with medical images, especially in DICOM format, often requires measuring distances on the images. For this, DIP information of the image is vital. Unfortnatly, most image type conversion programs, are not able to convert DICOM images into other formats (e.g. TIFF) with correctly set DPI.
+Working with medical images, especially in DICOM format, often requires measuring distances on the images. For this, DPI information of the image is vital. Unfortunately, most image type conversion programs, are not able to convert DICOM images into other formats (e.g. TIFF) with correctly set DPI. Also, when working with DICOM images from different sources, providing the DPI information in the file name can be very useful. 
+
+
 
 
 # Example usage
