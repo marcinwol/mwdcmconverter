@@ -13,9 +13,11 @@ TARGET = mwapp
 
 SOURCES += utils.cpp \ 
     mwimage.cpp \
-    mwresolution.cpp
+    mwresolution.cpp \
+    mwcsv.cpp
 
 HEADERS += utils.h \ 
     mwimage.h \
-    mwresolution.h
+    mwresolution.h \
+    mwcsv.h
 
