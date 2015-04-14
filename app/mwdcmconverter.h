@@ -11,7 +11,9 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/optional.hpp>
 
+
 #include "mwimage.h"
+#include "mwcsv.h"
 #include "utils.h"
 
 

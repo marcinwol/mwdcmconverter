@@ -11,6 +11,10 @@ int main(int ac, char* av[])
 
     MwDcmConverter app {ac, av};
 
+    app.test();
+
+    return 0;
+
     // get program options
     auto verbose        = app.get_option<bool>("verbose");
     auto in_dir         = app.get_option<path>("in-dir");

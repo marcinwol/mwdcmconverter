@@ -173,32 +173,16 @@ void
 MwDcmConverter::test() const
 {
 
-    cout << "test" << endl;
 
-   // path p {"/media/sf_D_DRIVE/dcm_for_tests/moa/159169_1_anon/im_3/i0000,0000b-no-phi.dcm"};
+    cout << "test reading csv" << endl;
 
-    path p {"/media/sf_D_DRIVE/dcm_for_tests/most/MB00019_KFLK/V0/20030418/20018/PA10/200181.dcm"};
+    path csv_file {"/home/m/Desktop/files.csv"};
 
-    MwImage img {p};
-    img.read();
+    mwcsv csv {csv_file};
 
+    mwcsvline line;
 
-    img.save_as_tiff("/home/m/Desktop/test2", "TIFF");
-
-
-
-
-    //mimg.write("/home/m/Desktop/test2");
-
-//    Magick::Blob b;
-//    mimg.write(&b, "TIFF");
-
-
-
-//   // cout.write(static_cast<const char *>(b.data()), b.length());
-
-//    ofstream oimg("/home/m/Desktop/test2.jpg", ifstream::binary);
-//    oimg.write(static_cast<const char *>(b.data()), b.length());
+    while (csv.read_line(line)) {};
 
 
 
