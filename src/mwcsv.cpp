@@ -7,9 +7,27 @@ mwcsvline::mwcsvline(char _delim): delim {_delim}
 
 }
 
+
+mwcsvline::mwcsvline(const string & a_line, char _delim): delim {_delim}
+{
+    split_line(a_line,delim);
+}
+
 void mwcsvline::split_line(const string & a_line,  char delim)
 {
     elems = mw::split(a_line, delim);
+}
+
+
+ostream& operator<<(ostream& os, const mwcsvline & a_line)
+{
+
+    for (auto e: a_line.elems)
+    {
+        os << e << ",";
+    }
+
+  return os;
 }
 
 
@@ -42,8 +60,8 @@ mwcsv::read_line(mwcsvline & line)
 
    if (getline(ifs, str))
    {
-        cout << "FDFD" << str << endl;
-        line.split_line(str, ',');
+        //cout << "FDFD" << str << endl;
+        line = mwcsvline(str, ',');
         return true;
    }
 

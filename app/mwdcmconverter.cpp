@@ -182,9 +182,9 @@ MwDcmConverter::test() const
 
     mwcsvline line;
 
-    while (csv.read_line(line)) {};
-
-
+    while (csv.read_line(line)) {
+        cout << line << endl;
+    };
 
 
 }

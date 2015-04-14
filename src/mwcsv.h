@@ -17,12 +17,17 @@ class mwcsvline
 {
 public:
     mwcsvline(char _delim = ',');
+    mwcsvline(const string & a_line, char _delim = ',');
     void split_line(const string & a_line, char delim);
     virtual ~mwcsvline();
 
 private:    
     char delim;
     vector<string> elems;
+
+    // friends
+    friend ostream & operator<<(ostream & os, const mwcsvline & a_line);
+
 };
 
 
