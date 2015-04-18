@@ -180,10 +180,18 @@ MwDcmConverter::test() const
 
     mwcsv csv {csv_file};
 
-    mwcsvline line;
+    csv.read_header();
+
+    cout << csv.get_header() << endl;
+
+    mwcsvline line {&csv.get_header()};
+
+    csv.read_line(line);
+
+    cout << line << endl;
 
     while (csv.read_line(line)) {
-        cout << line << endl;
+        //cout << line << endl;
     };
 
 

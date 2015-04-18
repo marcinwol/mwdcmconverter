@@ -1,6 +1,11 @@
 #include "mwcsv.h"
 
 
+mwcsvline::mwcsvline(mwcsvline*  _header, char _delim)
+    :header {_header}, delim {_delim}
+{
+
+}
 
 mwcsvline::mwcsvline(char _delim): delim {_delim}
 {
@@ -18,14 +23,23 @@ void mwcsvline::split_line(const string & a_line,  char delim)
     elems = mw::split(a_line, delim);
 }
 
+string mwcsvline::operator[](size_t idx)
+{
+    return elems.at(idx);
+}
 
 ostream& operator<<(ostream& os, const mwcsvline & a_line)
 {
 
-    for (auto e: a_line.elems)
+
+    for (size_t i = 0; i< a_line.elems.size()-1;++i)
     {
-        os << e << ",";
+        os << a_line.elems.at(i) << ",";
     }
+
+    os << a_line.elems.back() << endl;
+
+
 
   return os;
 }
@@ -67,8 +81,12 @@ mwcsv::read_line(mwcsvline & line)
 
    return false;
 
+}
 
-
+bool
+mwcsv::read_header()
+{
+    return read_line(header);
 }
 
 
