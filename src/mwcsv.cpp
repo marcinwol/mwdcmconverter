@@ -31,16 +31,9 @@ mwcsvline::find_idx(const string & val, size_t & idx)
 
     vector<string>::iterator it;
 
-    cout << "find_idx" << endl;
-   // cout << "shoudl be header: " << this << endl;
-
-    //it = find(elems.begin(), elems.end(), val);
-
     if ((it = find(elems.begin(), elems.end(), val)) != elems.end())
     {
-        cout << "FOUND intem"<< endl;
         idx = distance(elems.begin(), it);
-
         return true;
     }
 
@@ -64,8 +57,6 @@ mwcsvline::operator[](const string & col_name)
 {
 
     size_t col_idx;
-
-
 
     if (header->find_idx(col_name, col_idx))
     {

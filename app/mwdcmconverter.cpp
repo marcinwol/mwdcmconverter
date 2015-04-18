@@ -181,25 +181,15 @@ MwDcmConverter::test() const
     mwcsv csv {csv_file};
 
     csv.read_header();
+
     mwcsvline header = csv.get_header();
-
-    cout << header << endl;
-
 
     mwcsvline line {&header};
 
 
-    csv.read_line(line);
-
-
-    cout << "In_dir: "<< *line["In_dir"] << endl;
-    cout << "file path: "<< *line["Filepath"] << endl;
-
-
-
-//    while (csv.read_line(line)) {
-//        //cout << line << endl;
-//    };
+    while (csv.read_line(line)) {
+        cout << *line["Filepath"] << endl;
+    };
 
 
 }
