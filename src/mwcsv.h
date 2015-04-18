@@ -6,6 +6,7 @@
 #include <string>
 
 #include <boost/filesystem.hpp>
+#include <boost/optional.hpp>
 
 #include "utils.h"
 
@@ -13,9 +14,17 @@ using namespace boost::filesystem;
 
 using namespace std;
 
+using boost::optional;
+using boost::none;
+using boost::make_optional;
+
 class mwcsvline
 {
 public:
+
+   mwcsvline* header;
+
+
     mwcsvline(mwcsvline* _header, char _delim = ',');
 
     mwcsvline(char _delim = ',');
@@ -23,10 +32,16 @@ public:
 
     void split_line(const string & a_line, char delim);
     virtual ~mwcsvline();
+
+    void set_line(const string & in_line);
+
+    bool find_idx(const string & val, size_t & idx);
+
     string operator[](size_t idx);
+    optional<string> operator[](const string & col_name);
 
 private:    
-    mwcsvline* header;
+
     char delim;
     vector<string> elems;
 

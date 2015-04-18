@@ -4,7 +4,7 @@
 mwcsvline::mwcsvline(mwcsvline*  _header, char _delim)
     :header {_header}, delim {_delim}
 {
-
+   // cout << "const: " << *_header << endl;
 }
 
 mwcsvline::mwcsvline(char _delim): delim {_delim}
@@ -18,17 +18,67 @@ mwcsvline::mwcsvline(const string & a_line, char _delim): delim {_delim}
     split_line(a_line,delim);
 }
 
-void mwcsvline::split_line(const string & a_line,  char delim)
+void
+mwcsvline::split_line(const string & a_line,  char delim)
 {
     elems = mw::split(a_line, delim);
 }
 
-string mwcsvline::operator[](size_t idx)
+
+bool
+mwcsvline::find_idx(const string & val, size_t & idx)
+{
+
+    vector<string>::iterator it;
+
+    cout << "find_idx" << endl;
+   // cout << "shoudl be header: " << this << endl;
+
+    //it = find(elems.begin(), elems.end(), val);
+
+    if ((it = find(elems.begin(), elems.end(), val)) != elems.end())
+    {
+        cout << "FOUND intem"<< endl;
+        idx = distance(elems.begin(), it);
+
+        return true;
+    }
+
+    return false;
+}
+
+string
+mwcsvline::operator[](size_t idx)
 {
     return elems.at(idx);
 }
 
-ostream& operator<<(ostream& os, const mwcsvline & a_line)
+void
+mwcsvline::set_line(const string & in_line)
+{
+     split_line(in_line, delim);
+}
+
+optional<string>
+mwcsvline::operator[](const string & col_name)
+{
+
+    size_t col_idx;
+
+
+
+    if (header->find_idx(col_name, col_idx))
+    {
+        return make_optional(elems[col_idx]);
+    }
+
+
+
+    return none;
+}
+
+ostream&
+operator<<(ostream& os, const mwcsvline & a_line)
 {
 
 
@@ -74,8 +124,8 @@ mwcsv::read_line(mwcsvline & line)
 
    if (getline(ifs, str))
    {
-        //cout << "FDFD" << str << endl;
-        line = mwcsvline(str, ',');
+       // cout << "FDFD" << str << endl;
+        line.set_line(str);
         return true;
    }
 
