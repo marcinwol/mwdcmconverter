@@ -60,7 +60,19 @@ mwcsvline::operator[](const string & col_name)
 
     if (header->find_idx(col_name, col_idx))
     {
-        return make_optional(elems[col_idx]);
+
+        string col_value = elems[col_idx];
+
+        if (col_value.front() == '"')
+        {
+            col_value.erase(0, 1);
+        }
+        if (col_value.back() == '"')
+        {
+            col_value.erase(col_value.end()-1);
+        }
+
+        return make_optional(col_value);
     }
 
 
@@ -95,12 +107,17 @@ mwcsvline::~mwcsvline()
 
 
 
-mwcsv::mwcsv(const string & _fpath):fpath(_fpath), ifs(_fpath)
+mwcsv::mwcsv(const string & _fpath, bool has_header)
+    :fpath(_fpath), ifs(_fpath)
 {
-
+    if (has_header)
+    {
+        read_header();
+    }
 }
 
-mwcsv::mwcsv(const path & _fpath):mwcsv(_fpath.string())
+mwcsv::mwcsv(const path & _fpath, bool has_header)
+    :mwcsv(_fpath.string(), has_header)
 {
 
 }

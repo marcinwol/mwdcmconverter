@@ -25,7 +25,30 @@ MwDcmConverter::read_in_dir(const path & in_dir, int max_level, bool verbose)
     found_paths =  mw::fs::get_all_paths_fts2(in_dir, max_level, verbose);
 }
 
-bool MwDcmConverter::create_output_directory(const path & out_dir, bool remove_if_exist = false)
+void
+MwDcmConverter::read_in_csv(const string & in_csv)
+{
+
+
+    mwcsv csv {path(in_csv)};
+
+    mwcsvline line {&csv.get_header()};
+
+    while (csv.read_line(line)) {
+
+        string filepath = *line["Filepath"];
+
+        found_paths.push_back(
+                    mw::fs::found_path_info {filepath,
+                                      atoi((*line["Level"]).c_str()),
+                                      path(filepath)}
+                    );
+    };
+
+}
+
+bool
+MwDcmConverter::create_output_directory(const path & out_dir, bool remove_if_exist = false)
 {
 
     try
@@ -180,11 +203,7 @@ MwDcmConverter::test() const
 
     mwcsv csv {csv_file};
 
-    csv.read_header();
-
-    mwcsvline header = csv.get_header();
-
-    mwcsvline line {&header};
+    mwcsvline line {&csv.get_header()};
 
 
     while (csv.read_line(line)) {

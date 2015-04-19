@@ -11,10 +11,6 @@ int main(int ac, char* av[])
 
     MwDcmConverter app {ac, av};
 
-    app.test();
-
-    return 0;
-
     // get program options
     auto verbose        = app.get_option<bool>("verbose");
     auto in_dir         = app.get_option<path>("in-dir");
@@ -31,9 +27,15 @@ int main(int ac, char* av[])
         return 1;
     }
 
-    if (in_dir)
+    // if csv_file not provided use in_dir
+    // otherwise use the files fromt he csv_file
+    if (in_dir && !csv_file)
     {
         app.read_in_dir(*in_dir);
+    }
+    else
+    {
+        app.read_in_csv(*csv_file);
     }
 
     if (!out_dir)
@@ -61,7 +63,7 @@ int main(int ac, char* av[])
     // process each path and convert images to grayscale, 8-bit tiffs
     for (const mw::fs::found_path_info & a_path: found_files)
     {
-        //cout << a_path.fpath << endl;
+        cout << a_path.fpath << endl;
 
         path in_file_path = a_path.fpath;
 

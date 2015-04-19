@@ -5,11 +5,13 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <typeinfo>
 
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/optional.hpp>
+#include <boost/lexical_cast.hpp>
 
 
 #include "mwimage.h"
@@ -24,6 +26,7 @@ using namespace boost::filesystem;
 
 using boost::optional;
 using boost::none;
+using boost::lexical_cast;
 
 namespace po = boost::program_options;
 
@@ -45,6 +48,7 @@ public:
     void read_in_dir(const path & in_dir,
                      int max_level = -1,
                      bool verbose = true);
+    void read_in_csv(const string & in_csv);
 
     bool create_output_directory(const path & out_dir, bool remove_if_exist);
 

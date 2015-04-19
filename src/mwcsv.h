@@ -28,7 +28,7 @@ public:
     mwcsvline(mwcsvline* _header, char _delim = ',');
 
     mwcsvline(char _delim = ',');
-    mwcsvline(const string & a_line, char _delim = ',');        
+    mwcsvline(const string & a_line, char _delim = ',');
 
     void split_line(const string & a_line, char delim);
     virtual ~mwcsvline();
@@ -55,8 +55,8 @@ private:
 class mwcsv
 {
 public:
-    mwcsv(const string &_fpath);
-    mwcsv(const path &_fpath);
+    mwcsv(const string &_fpath, bool has_header = true);
+    mwcsv(const path &_fpath, bool has_header = true);
 
     bool read_header();
     bool read_line(mwcsvline & line);
