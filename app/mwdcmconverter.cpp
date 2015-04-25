@@ -121,6 +121,7 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
        cout << desc << "\n";
 
        options_ok = false;
+       return;
     }
 
     if (!isAllowedFormat(vm["out-format"].as<string>()))
