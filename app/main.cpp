@@ -104,7 +104,7 @@ int main(int ac, char* av[])
         {
             array<double, 2> dpi = img.getResolution().getDPI();
             out_filename += fmt::format("_DPI{:03d}",
-                                        static_cast<int>(dpi[0]));
+                                        static_cast<int>(dpi[0]+0.5));
         }
 
         if (distance)
