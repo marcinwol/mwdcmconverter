@@ -81,7 +81,7 @@ MwImage::calcResolution() {
   // to store potential dcm properties for pixelSpacing
   vector<properties_map::value_type> found_properties;
 
-  // first find if we have pixel spacing propertie
+  // first find if we have pixel spacing propertie for PixelSpacing propertie
   for (const auto & kv: this->properties)
   {
       if (boost::icontains(kv.first, PIXEL_SPACING_KEY_WORD))
@@ -90,6 +90,18 @@ MwImage::calcResolution() {
       }
   }
 
+  // if PixelSpacing does not exist than use Imager Pixel Spacing propertie
+  // as a backup plan
+  if (found_properties.empty())
+  {
+      for (const auto & kv: this->properties)
+      {
+          if (boost::icontains(kv.first, PIXEL_SPACING_KEY_WORD2))
+          {
+              found_properties.push_back(kv);
+          }
+      }
+  }
 
 
   if (!found_properties.empty()) {

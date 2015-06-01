@@ -16,6 +16,7 @@ using namespace boost::filesystem;
 
 namespace {
     static const string PIXEL_SPACING_KEY_WORD = "dcm:pixelspacing";
+    static const string PIXEL_SPACING_KEY_WORD2 = "dcm:imagerpixelspacing";
 }
 
 class MwImage
