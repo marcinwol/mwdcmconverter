@@ -14,9 +14,9 @@
 #include <boost/lexical_cast.hpp>
 
 
-#include "mwimage.h"
-#include "mwcsv.h"
-#include "utils.h"
+#include "../src/mwimage.h"
+#include "../src/mwcsv.h"
+#include "../src/utils.h"
 
 
 #include "../ext/format.h"

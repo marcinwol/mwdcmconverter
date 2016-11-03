@@ -1,6 +1,6 @@
 # mwdcmconverter
 
-mwdcmconverter converts DICOM images into other formats with correct DPI resolution.
+`mwdcmconverter` converts DICOM images into other formats with correct DPI resolution.
 
 # motivation
 

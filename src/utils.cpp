@@ -1,25 +1,25 @@
 
-#include "utils.h"
+    #include "utils.h"
 
-#include <errno.h>
-#include <fts.h>
+    #include <errno.h>
+    #include <fts.h>
 
-namespace  mw {
-  using namespace std;
-  namespace bf = boost::filesystem;
+    namespace  mw {
+    using namespace std;
+    namespace bf = boost::filesystem;
 
 
-  /**
-   * Splits a string on a given delim
-   *
-   * @brief split
-   * @param s
-   * @param delim
-   * @return
-   */
-  std::vector<std::string>
-  split(const std::string &s, char delim)
-  {
+    /**
+    * Splits a string on a given delim
+    *
+    * @brief split
+    * @param s
+    * @param delim
+    * @return
+    */
+    std::vector<std::string>
+    split(const std::string &s, char delim)
+    {
 
       std::vector<std::string> elems;
 
@@ -30,20 +30,20 @@ namespace  mw {
            elems.push_back(item);
       }
       return elems;
-  }
+    }
 
 
-  /**
-   * Split a string on a given regular expression
-   *
-   * @brief resplit
-   * @param s
-   * @param rgx_str
-   * @return
-   */
-  std::vector<std::string>
-  resplit(const std::string & s, std::string rgx_str)
-  {
+    /**
+    * Split a string on a given regular expression
+    *
+    * @brief resplit
+    * @param s
+    * @param rgx_str
+    * @return
+    */
+    std::vector<std::string>
+    resplit(const std::string & s, std::string rgx_str)
+    {
 
       std::vector<std::string> elems;
 
@@ -59,19 +59,19 @@ namespace  mw {
       }
 
       return elems;
-  }
+    }
 
 
-  /**
-   * Remove an extenstion from a file name.
-   *
-   * @brief removeExtension
-   * @param filename
-   * @return
-   */
-  std::string
-  removeExtension(const std::string & filename)
-  {
+    /**
+    * Remove an extenstion from a file name.
+    *
+    * @brief removeExtension
+    * @param filename
+    * @return
+    */
+    std::string
+    removeExtension(const std::string & filename)
+    {
 
 
       size_t lastdot = filename.find_last_of(".");
@@ -79,33 +79,33 @@ namespace  mw {
           return filename;
       }
       return filename.substr(0, lastdot);
-  }
+    }
 
 
-  /**
-   * Remove an extenstion from a file name.
-   *
-   * @brief removeExtension
-   * @param filename
-   * @return
-   */
-  std::string
-  removeExtension(const bf::path & filename)
-  {
+    /**
+    * Remove an extenstion from a file name.
+    *
+    * @brief removeExtension
+    * @param filename
+    * @return
+    */
+    std::string
+    removeExtension(const bf::path & filename)
+    {
     return removeExtension(filename.string());
-  }
+    }
 
 
-  /**
-   * Finds first float number in a given string.
-   *
-   * @brief extract_first_number
-   * @param in_str
-   * @return
-   */
-  std::string
-  extract_first_number(const std::string & in_str)
-  {
+    /**
+    * Finds first float number in a given string.
+    *
+    * @brief extract_first_number
+    * @param in_str
+    * @return
+    */
+    std::string
+    extract_first_number(const std::string & in_str)
+    {
 
       boost::regex file_size_rgx(R"([+-]?(?=[.]?[0-9])[0-9]*(?:[.][0-9]*)?(?:[Ee][+-]?[0-9]+)?)");
 
@@ -118,10 +118,10 @@ namespace  mw {
 
       return string {};
 
-  }
+    }
 
-  bool
-  replace(std::string& str, const std::string& from, const std::string& to) {
+    bool
+    replace(std::string& str, const std::string& from, const std::string& to) {
       size_t start_pos = str.find(from);
       if(start_pos == std::string::npos)
       {
@@ -129,23 +129,23 @@ namespace  mw {
       }
       str.replace(start_pos, from.length(), to);
       return true;
-  }
+    }
 
 
-  std::string
-  replaceall(std::string str, const std::string& from, const std::string& to) {
+    std::string
+    replaceall(std::string str, const std::string& from, const std::string& to) {
       size_t start_pos = 0;
       while((start_pos = str.find(from, start_pos)) != std::string::npos) {
           str.replace(start_pos, from.length(), to);
           start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
       }
       return str;
-  }
+    }
 
 
-  vector<string>
-  readlines(std::istream & in_file)
-  {
+    vector<string>
+    readlines(std::istream & in_file)
+    {
       vector<string> lines;
 
       string a_line;
@@ -156,27 +156,35 @@ namespace  mw {
       }
 
       return lines;
-  }
+    }
 
-  template <typename T>
-  std::vector<string>
-  readlines(const T & in_file)
-  {
+    template <typename T>
+    std::vector<string>
+    readlines(const T & in_file)
+    {
       stringstream ss;
       ss << in_file;
       ifstream ifs {ss.str()};
-      return readlines(ifs);
-  }
+      istream& is   = ifs;
+      return readlines(is);
+    }
+
+//    std::vector<string>
+//    readlines(ifstream & ifs)
+//    {
+//        return readlines(ifs);
+//    }
 
 
-  // Explicit instantiation of the above template
-  template std::vector<string> readlines<>(const string & in_file);
-  template std::vector<string> readlines<>(const bf::path & in_file);
+    // Explicit instantiation of the above template
+    template std::vector<string> readlines<string>(const string & in_file);
+    template std::vector<string> readlines<bf::path>(const bf::path & in_file);
+    //template std::vector<string> readlines<ifstream>(const bf::path & in_file);
 
 
 
-  namespace fs
-  {
+    namespace fs
+    {
 
 
 
@@ -371,7 +379,7 @@ namespace  mw {
           {
                 cout << e.what() << ": " << *dir;
                 cout << " ... skipping." << *dir;
-                cout << endl;                
+                cout << endl;
           }
 
 
@@ -405,7 +413,7 @@ namespace  mw {
       {
 
         if (bf::exists(out_path) && remove_if_exist == true)
-        {      
+        {
               bf::remove_all(out_path);
         }
 
@@ -502,8 +510,8 @@ namespace  mw {
     }
 
 
-  }
+    }
 
 
 
-}
+    }
