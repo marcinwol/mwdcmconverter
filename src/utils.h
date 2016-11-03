@@ -101,10 +101,6 @@
   readlines(const T & in_file);
 
 
-
-//  std::vector<string>
-//  readlines(const ifstream & ifs);
-
   /**
   * Joints an interable into a string   using
   * given delim.
