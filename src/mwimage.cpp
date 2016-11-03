@@ -32,10 +32,10 @@ MwImage::readProperties()
 
   this->properties["format"] = core_image->magick;
 
-  (void) GetImageProperty(core_image,"exif:*");
-  (void) GetImageProperty(core_image,"icc:*");
-  (void) GetImageProperty(core_image,"iptc:*");
-  (void) GetImageProperty(core_image,"xmp:*");
+  (void) GetImageProperty(core_image,"exif:*", nullptr);
+  (void) GetImageProperty(core_image,"icc:*", nullptr);
+  (void) GetImageProperty(core_image,"iptc:*", nullptr);
+  (void) GetImageProperty(core_image,"xmp:*", nullptr);
 
   ResetImagePropertyIterator(core_image);
   property=GetNextImageProperty(core_image);
@@ -44,7 +44,7 @@ MwImage::readProperties()
     {
         while (property != (const char *) NULL)
           {
-            value = GetImageProperty(core_image, property);
+            value = GetImageProperty(core_image, property, nullptr);
             this->properties[property] =  value;
             property = GetNextImageProperty(core_image);
           }
@@ -68,7 +68,8 @@ MwImage::calcResolution() {
         // if not DICOM dont do anything special. Just convert
         // normal density into pixel spacing.
 
-        Magick::Geometry DPI = mimg.density();
+        Magick::Geometry DPI = mimg.geometry();
+
 
         ps_x = DPI.width()  > 0.0 ? 25.4 / DPI.width()   : 0.0;
         ps_y = DPI.height() > 0.0 ? 25.4 / DPI.height()  : 0.0;
@@ -130,7 +131,7 @@ MwImage::calcResolution() {
       // so not surprise. If so, use density information (DPI)
       // and calcate pixel spacing.
 
-      Magick::Geometry DPI = mimg.density();
+      Magick::Geometry DPI = mimg.geometry();
 
       ps_x = DPI.width()  > 0.0 ? 25.4 / DPI.width()   : 0.0;
       ps_y = DPI.height() > 0.0 ? 25.4 / DPI.height()  : 0.0;
@@ -155,15 +156,15 @@ MwImage::save_as_tiff(const path & out_path, const string & format)
     mimg.compressType(Magick::NoCompression);
     mimg.depth(8);
     mimg.resolutionUnits(Magick::PixelsPerInchResolution);
-    mimg.type(Magick::GrayscaleMatteType);
+    mimg.type(Magick::GrayscaleType);
 
     array<double, 2> dpi = resolution.getDPI();
 
-    Magick::Geometry dip_geometry(72, 72);
+    Magick::Point dip_geometry(72, 72);
 
     if (dpi[0] > 0 && dpi[1] > 0)
     {
-        dip_geometry = Magick::Geometry(int(dpi[0]), int(dpi[1]));
+        dip_geometry = Magick::Point(int(dpi[0]), int(dpi[1]));
     }
 
     mimg.density(dip_geometry);
