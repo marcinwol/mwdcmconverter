@@ -20,6 +20,7 @@
 
 
 #include "../ext/format.h"
+#include "../ext/ostream.h"
 
 using namespace std;
 using namespace boost::filesystem;
