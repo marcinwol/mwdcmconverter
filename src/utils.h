@@ -166,6 +166,9 @@
        string full_path;
        int    fts_level;
        bf::path fpath;
+
+       string
+       path_to_filename() const;
    };
 
 

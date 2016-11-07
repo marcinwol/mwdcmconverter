@@ -176,6 +176,36 @@ template std::vector<string> readlines<bf::path>(const bf::path & in_file);
 namespace fs
 {
 
+    string
+    found_path_info::path_to_filename() const
+    {
+
+        string parent_path = fpath.parent_path().string();
+
+        string beautiful_path;
+
+        for (int i = 0; i < parent_path.length(); ++i) {
+
+            char new_ch = parent_path[i];
+
+            switch (new_ch)
+            {
+                case ' ':
+                    continue;
+                case ',':
+                case '.':
+                case '|':
+                case '/':
+                case '\\':
+                    new_ch = '_';
+            }
+
+            beautiful_path += new_ch;
+        }
+
+        return beautiful_path;
+    }
+
   /** Scaning folder for all paths using fts_read linux method.
    * @brief fts_dear_tree_scan
    * @param in_path
@@ -238,7 +268,9 @@ namespace fs
                         << flush;
               }
 
-             //cout << node->fts_level << node->fts_path <<  endl;
+//             cout << node->fts_level << " "
+//                  << node->fts_path <<  " "
+//                  << endl;
 
               ++i;
 

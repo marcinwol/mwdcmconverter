@@ -1,4 +1,4 @@
-#include "mwdcmconverter.h"
+#include "dcmconverter.h"
 
 
 const vector<string> MwDcmConverter::allowed_formats  {
@@ -99,6 +99,8 @@ MwDcmConverter::ParseOptions(int acc, char *avv[])
                         "location where the found images will be copied")
             ("overwrite,w", po::value<bool>()->default_value(false),
                          "overwrite output files")
+            ("prepend-path", po::bool_switch()->default_value(false),
+             "prepend parent folder to the output filename")
             ("append-dpi", po::bool_switch()->default_value(false),
                       "append DPI to the output filename")
             ("append-distance", po::value<double>(),

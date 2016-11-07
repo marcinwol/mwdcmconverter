@@ -9,17 +9,17 @@
       <sourceFolder url="file://$MODULE_DIR$/ext/filesignature.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ext/format.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ext/filesignature.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/app/mwdcmconverter.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/dcmconverter.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/app/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/app/mwdcmconverter.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/app/dcmconverter.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/mwimage.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/utils.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/mwresolution.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/mwresolution.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/mwimage.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/mwcsv.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/utils.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/mwcsv.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/mwimage.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/utils.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
     </content>

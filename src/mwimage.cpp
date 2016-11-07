@@ -56,6 +56,11 @@ MwImage::readProperties()
 
 }
 
+void
+MwImage::defineProperty(string property_name, string property_value)
+{
+    this->mimg.defineSet(property_name, property_value);
+}
 
 void
 MwImage::calcResolution() {
@@ -155,6 +160,7 @@ MwImage::save_as_tiff(const path & out_path, const string & format)
     mimg.colorSpace(Magick::GRAYColorspace);
     mimg.compressType(Magick::NoCompression);
     mimg.depth(8);
+    mimg.alpha(false);
     mimg.resolutionUnits(Magick::PixelsPerInchResolution);
     mimg.type(Magick::GrayscaleType);
 

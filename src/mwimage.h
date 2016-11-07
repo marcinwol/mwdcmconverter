@@ -36,6 +36,7 @@ public:
 
     void readProperties();
     void calcResolution();
+    void defineProperty(string property_name, string property_value);
 
 
     bool isDCM() const {return getType() == "DCM";}

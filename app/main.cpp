@@ -1,7 +1,7 @@
 #define BOOST_NO_CXX11_SCOPED_ENUMS
 
 
-#include "mwdcmconverter.h"
+#include "dcmconverter.h"
 
 
 
@@ -17,6 +17,7 @@ int main(int ac, char* av[])
     auto out_dir        = app.get_option<path>("out-dir");
     auto overwrite      = app.get_option<bool>("overwrite");
     auto csv_file       = app.get_option<string>("csv-file");
+    auto prepend_path   = app.get_option<bool>("prepend-path");
     auto output_format  = app.get_option<string>("out-format");
     auto append_dpi     = app.get_option<bool>("append-dpi");
     auto distance       = app.get_option<double>("append-distance");
@@ -69,6 +70,8 @@ int main(int ac, char* av[])
 
         indx++;
 
+        //cout << "beatuifl: " << a_path.path_to_filename() << endl;
+
         if (!MwImage::is_image(in_file_path))
         {
 
@@ -80,9 +83,15 @@ int main(int ac, char* av[])
             continue;
         }
 
+
         map<string, string> fileparts = mw::fs::getfileparts(in_file_path);
 
         string out_filename = fileparts["basename"];
+
+        if (*prepend_path)
+        {
+            out_filename = a_path.path_to_filename() + '_' + fileparts["basename"];
+        }
 
         if (*verbose)
         {
@@ -98,6 +107,7 @@ int main(int ac, char* av[])
 
         MwImage img {in_file_path};
         img.read();
+        img.defineProperty("dcm:display-range", "reset");
 
 
         if (*append_dpi)
