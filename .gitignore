@@ -1,5 +1,6 @@
 *.pro.user*
 *~
+.idea
 *.o
 *.a
 *.so*
