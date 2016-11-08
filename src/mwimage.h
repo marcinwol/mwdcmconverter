@@ -37,6 +37,7 @@ public:
     void readProperties();
     void calcResolution();
     void defineProperty(string property_name, string property_value);
+    void transformPixels(Magick::Image& in_img);
 
 
     bool isDCM() const {return getType() == "DCM";}

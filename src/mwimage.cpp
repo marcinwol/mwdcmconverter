@@ -63,6 +63,61 @@ MwImage::defineProperty(string property_name, string property_value)
 }
 
 void
+MwImage::transformPixels(Magick::Image& in_img)
+{
+    size_t w {this->mimg.columns()};
+    size_t h {this->mimg.rows()};
+
+    double range = pow(2, this->mimg.modulusDepth());
+
+
+    //this->mimg.modifyImage();
+
+
+   // Magick::Pixels my_pixel_cache(this->mimg);
+
+    Magick::Quantum* pixels_p = in_img.getPixels(0, 0, w, h);
+
+
+
+    for(size_t row = 0; row <h ; row++)
+    {
+        for(size_t column = 0; column <w ; column++)
+        {
+            //Magick::Quantum color =  pixels_p[w * row + column];
+            //Magick::Quantum& color =  pixels_p[w * row + column];
+           //color = (2.81*(color/range)-240)*range;
+            //color = 0;
+            //cout << (color/range) << endl;
+            Magick::Color color = in_img.pixelColor(column, row);
+//           color.quantumRed((color.quantumRed()*2.81/range-240));
+//            color.quantumGreen((color.quantumGreen()*2.81/range-240)/range);
+//            color.quantumBlue((color.quantumBlue()*2.81/range-240)/range);
+
+            color.quantumRed((color.quantumRed()/range)*1000);
+            color.quantumGreen((color.quantumGreen()/range)*10000);
+            color.quantumBlue((color.quantumBlue()/range)*10000);
+            in_img.pixelColor(column, row, color);
+
+            if (color.quantumBlue()/range > 1)
+            {
+                cout << (color.quantumBlue()/range) << endl;
+            }
+
+            //Magick::Color color = in_img.pixelColor(column, row);
+            //cout << range << endl;
+
+        }
+    }
+
+   // my_pixel_cache.sync();
+
+    //in_img.syncPixels();
+
+
+}
+
+void
 MwImage::calcResolution() {
 
     double ps_x = 0.0;
@@ -157,6 +212,8 @@ MwImage::save_as_tiff(const path & out_path, const string & format)
 
     Magick::Image mimg = get();
 
+    //transformPixels(mimg);
+
     mimg.colorSpace(Magick::GRAYColorspace);
     mimg.compressType(Magick::NoCompression);
     mimg.depth(8);
@@ -180,6 +237,16 @@ MwImage::save_as_tiff(const path & out_path, const string & format)
 
     ofstream oimg(out_path.string(), ifstream::binary);
     oimg.write(static_cast<const char *>(b.data()), b.length());
+
+//    Magick::Image tiff_img {out_path.string()};
+//    transformPixels(tiff_img);
+//
+//
+//    Magick::Blob b2;
+//    tiff_img.write(&b2, format);
+//    ofstream oimg2(out_path.string(), ifstream::binary);
+//    oimg2.write(static_cast<const char *>(b2.data()), b2.length());
+
 }
 
 
